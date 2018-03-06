@@ -1,0 +1,16 @@
+--- # AWS EC@ instance Commnication
+- hosts: aws
+  remote_user: ec2-user
+  become: yes
+  gather_facts: yes
+  connection: ssh
+  tasks:
+  - name: Execute a shell directory in aws
+    shell: ls -al
+    register: result
+  - name: Display result
+    debug: var=result   
+  - name: Install the httpd 
+    yum: name=httpd
+  - name: start the httpd service
+    service: name=httpd state=started
